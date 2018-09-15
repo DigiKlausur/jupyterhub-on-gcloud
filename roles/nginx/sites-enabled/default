@@ -1,0 +1,91 @@
+##
+# You should look at the following URL's in order to grasp a solid understanding
+# of Nginx configuration files in order to fully unleash the power of Nginx.
+# https://www.nginx.com/resources/wiki/start/
+# https://www.nginx.com/resources/wiki/start/topics/tutorials/config_pitfalls/
+# https://wiki.debian.org/Nginx/DirectoryStructure
+#
+# In most cases, administrators will remove this file from sites-enabled/ and
+# leave it as reference inside of sites-available where it will continue to be
+# updated by the nginx packaging team.
+#
+# This file will automatically load configuration files provided by other
+# applications, such as Drupal or Wordpress. These applications will be made
+# available underneath a path with that package name, such as /drupal8.
+#
+# Please see /usr/share/doc/nginx-doc/examples/ for more detailed examples.
+##
+
+# Default server configuration
+#
+server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+
+
+	root /var/www/html;
+
+	# Add index.php to the list if you are using PHP
+	index index.html index.htm index.nginx-debian.html;
+
+	server_name _;
+
+	location / {
+		# First attempt to serve request as file, then
+		# as directory, then fall back to displaying a 404.
+		try_files $uri $uri/ =404;
+	}
+
+}
+
+server {
+      listen 80;
+      server_name notebooks.deebul.me;
+      # Tell all requests to port 80 to be 302 redirected to HTTPS
+      return 302 https://$host$request_uri;
+}
+
+server {
+      #listen 443 ssl default_server;
+      listen 443;
+      ssl on;
+      # Replace this with your domain
+      server_name notebooks.deebul.me;
+
+      ## SSL Protocals
+      ssl_certificate /etc/letsencrypt/live/notebooks.deebul.me/fullchain.pem;
+      ssl_certificate_key /etc/letsencrypt/live/notebooks.deebul.me/privkey.pem;
+      ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+      ssl_prefer_server_ciphers on;
+      ssl_dhparam /etc/nginx/ssl/dhparam.pem;
+      
+      # Make site accessible from http://localhost/
+      #server_name localhost;
+
+      # certs sent to the client in SERVER HELLO are concatenated in
+      ssl_session_timeout 1d;
+      ssl_session_cache shared:SSL:50m;
+      ssl_stapling on;
+      ssl_stapling_verify on;
+
+      # modern configuration. tweak to your needs.
+        ssl_ciphers 'ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256';
+
+      
+      # HSTS (ngx_http_headers_module is required) (15768000 seconds = 6 months)
+      add_header Strict-Transport-Security max-age=15768000;
+
+      location / {
+         proxy_pass http://127.0.0.1:8000;
+         proxy_set_header X-Real-IP $remote_addr;
+         proxy_set_header Host $host;
+         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+         proxy_set_header X-NginX-Proxy true;
+         #proxy_http_version 1.1;
+         proxy_set_header Upgrade $http_upgrade;
+         proxy_set_header Connection "upgrade";
+      }
+      location ~ /.well-known {
+         allow all;
+      }
+}
