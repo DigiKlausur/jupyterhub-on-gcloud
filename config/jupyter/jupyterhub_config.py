@@ -17,13 +17,13 @@ c.SystemdSpawner.cpu_limit = 1.0
 c.SystemdSpawner.isolate_tmp = True
 
 # Disable or enable user sudo
-#c.SystemdSpawner.disable_user_sudo = False
+c.SystemdSpawner.disable_user_sudo = False
 # Readonly
 c.SystemdSpawner.readonly_paths = None
 # Readwrite path
 #c.SystemdSpawner.readwrite_paths = None
 
-c.Autheticator.admin_users = {'admin', 'instructor1'}
+c.Autheticator.admin_users = {'admin', 'mrc-grader'}
 c.Autheticator.whitelist = {'admin', 'mhm_wasil', 'instructor1', 
                             'instructor2', 'student1', 'student2',
                             'mrc-grader', 'wtus-grader'}
