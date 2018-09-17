@@ -16,8 +16,8 @@ def restric_group_from_dirs(group_name, parent_dir):
 	    if student == user:
 		print student, user
 	    else:
-		subprocess.call(["setfacl", "--modify", "group:{}:0".format(group_name),os.path.join(parent_dir, user)])
-    		print group_name, " is restricted from accessing ", os.path.join(parent_dir, user)
+		subprocess.call(["setfacl", "--modify", "user:{}:0".format(student),os.path.join(parent_dir, user)])
+    		print student, " is restricted from accessing ", os.path.join(parent_dir, user)
 
 #def main():
 #    restric_group_from_dirs("mrc-student-group", ["/etc"])
