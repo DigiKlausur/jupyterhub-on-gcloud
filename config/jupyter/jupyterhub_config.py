@@ -23,9 +23,15 @@ c.SystemdSpawner.readonly_paths = None
 # Readwrite path
 #c.SystemdSpawner.readwrite_paths = None
 
-c.Autheticator.admin_users = {'admin', 'mrc-grader'}
+# use jupyterlab
+c.Spawner.cmd = ['jupyter-labhub']
+c.Spawner.default_url = '/tree'
+
+# ser default_shell
+c.SystemdSpawner.default_shell = '/bin/rbash'
+c.Authenticator.admin_users = {'admin', 'mrc-grader'}
 c.Autheticator.whitelist = {'admin', 'mhm_wasil', 'instructor1', 
-                            'instructor2', 'student1', 'student2',
+                            'instructor2', 'student1', 'student2', 'student3',
                             'mrc-grader', 'wtus-grader'}
 c.LocalAuthenticator.group_whitelist = {'mrc-group'} 
 #c.LocalAuthenticator.group_whitelist = {'mrc-group', 'wtus-group'} 
