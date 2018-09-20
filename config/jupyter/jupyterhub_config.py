@@ -10,8 +10,8 @@ c.SystemdSpawner.user_workingdir = '/home/{USERNAME}'
 #c.JupyterHub.config_file = '/home/admin/jupyterhub_config.py'
 
 # Limit memory and cpu usage for each user
-c.SystemdSpawner.mem_limit = '1G'
-c.SystemdSpawner.cpu_limit = 1.0
+c.SystemdSpawner.mem_limit = '0.5G'
+c.SystemdSpawner.cpu_limit = 0.5
 
 # create private /tmp to isolate each user info
 c.SystemdSpawner.isolate_tmp = True
@@ -28,9 +28,9 @@ c.Spawner.cmd = ['jupyter-labhub']
 c.Spawner.default_url = '/tree'
 
 # ser default_shell
-c.SystemdSpawner.default_shell = '/bin/rbash'
+c.SystemdSpawner.default_shell = '/bin/bash'
 c.Authenticator.admin_users = {'admin', 'mrc-grader'}
-c.Autheticator.whitelist = {'admin', 'mhm_wasil', 'instructor1', 
+c.Authenticator.whitelist = {'admin', 'mhm_wasil', 'instructor1', 
                             'instructor2', 'student1', 'student2', 'student3',
                             'mrc-grader', 'wtus-grader'}
 c.LocalAuthenticator.group_whitelist = {'mrc-group'} 
