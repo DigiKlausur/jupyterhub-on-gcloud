@@ -1,5 +1,5 @@
 This project consists of configs to deploy jupyterhub for teaching on Google Cloug Engine capable of handling 50 to 60 students. It uses systemd spawner to spawn users.
-However, due to unreliabily of a single server running jupyterhub, we are switching to Kubernetes.
+However, due to unreliability of a single server running jupyterhub, we are switching to [Kubernetes](https://github.com/DigiKlausur/jupyterhub-on-kubernetes).
 This deployment is useful for small class consisting of maximum 50-60 students.
 
 Installation
