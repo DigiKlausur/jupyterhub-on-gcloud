@@ -69,9 +69,6 @@ def main():
     if STUDENT_ID == "":
 	    print "No student_id specified, will be applied to all students if the feedbacks exist in the course dir"
     
-    if STUDENT_GROUP == "":
-	    print "No student group specified" 
-
     student_uname_list = os.listdir(os.path.join(course_root,feedback_dir))
     release_feedback(ASSIGNMENT_ID, STUDENT_ID, STUDENT_FB_DIR, student_uname_list)
     
